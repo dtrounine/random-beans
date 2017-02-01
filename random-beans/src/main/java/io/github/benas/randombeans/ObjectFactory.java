@@ -23,6 +23,7 @@
  */
 package io.github.benas.randombeans;
 
+import io.github.benas.randombeans.api.EnhancedRandom;
 import org.objenesis.Objenesis;
 import org.objenesis.ObjenesisStd;
 
@@ -44,13 +45,21 @@ import static io.github.benas.randombeans.util.ReflectionUtils.isAbstract;
 @SuppressWarnings({"unchecked"})
 class ObjectFactory {
 
+    private final EnhancedRandom enhancedRandom;
+
     private final Objenesis objenesis = new ObjenesisStd();
 
     private boolean scanClasspathForConcreteTypes;
 
+    public ObjectFactory(EnhancedRandom enhancedRandom) {
+        this.enhancedRandom = enhancedRandom;
+    }
+
     <T> T createInstance(final Class<T> type) {
         if (scanClasspathForConcreteTypes && isAbstract(type)) {
-            Class<?> randomConcreteSubType = randomElementOf(getPublicConcreteSubTypesOf((type)));
+            Class<?> randomConcreteSubType = randomElementOf(getPublicConcreteSubTypesOf((type)),
+                    // enhancedRandom has seed, so we can use its nextInt as another seed for reproducibility
+                    enhancedRandom.nextInt());
             if (randomConcreteSubType == null) {
                 throw new InstantiationError("Unable to find a matching concrete subtype of type: " + type + " in the classpath");
             } else {

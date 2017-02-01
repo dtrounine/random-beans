@@ -43,14 +43,15 @@ public class CollectionUtils {
      * @param <T>  the type of elements in the list
      * @return a random element from the list or null if the list is empty
      */
-    public static <T> T randomElementOf(final List<T> list) {
+    public static <T> T randomElementOf(final List<T> list, int seed) {
         if (list.isEmpty()) {
             return null;
         }
-        return list.get(nextInt(0, list.size()));
+        return list.get(nextInt(0, list.size(), seed));
     }
 
-    private static int nextInt(int startInclusive, int endExclusive) {
-        return startInclusive + new Random().nextInt(endExclusive - startInclusive);
+    private static int nextInt(int startInclusive, int endExclusive, int seed) {
+        return startInclusive + new Random(seed).nextInt(endExclusive - startInclusive);
     }
+
 }

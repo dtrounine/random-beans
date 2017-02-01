@@ -33,7 +33,7 @@
 
     <groupId>io.github.benas</groupId>
     <artifactId>random-beans-parent</artifactId>
-    <version>3.5.0-SNAPSHOT</version>
+    <version>3.5.1-ok.ru-0.1</version>
     <packaging>pom</packaging>
 
     <name>Random Beans</name>
@@ -168,6 +168,14 @@
         </contributor>
     </contributors>
 
+	<distributionManagement>
+		<repository>
+		  <id>art.at.odkl.ru</id>
+		  <name>Ok Internal Artifctory</name>
+		  <url>https://art.at.odkl.ru/artifactory/libs-release-local/</url>
+		</repository>
+	</distributionManagement>
+	
     <dependencyManagement>
         <dependencies>
             <dependency>

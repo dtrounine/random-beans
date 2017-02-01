@@ -36,7 +36,7 @@ public class CollectionUtilsTest {
         String[] elements = {"foo", "bar"};
 
         // When
-        String element = CollectionUtils.randomElementOf(asList(elements));
+        String element = CollectionUtils.randomElementOf(asList(elements), 0);
 
         // Then
         assertThat(element).isIn(elements);

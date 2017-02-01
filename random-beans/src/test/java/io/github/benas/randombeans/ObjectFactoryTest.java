@@ -41,7 +41,7 @@ public class ObjectFactoryTest {
 
     @Before
     public void setUp() {
-        objectFactory = new ObjectFactory();
+        objectFactory = new ObjectFactory(EnhancedRandomBuilder.aNewEnhancedRandom());
     }
 
     @Test

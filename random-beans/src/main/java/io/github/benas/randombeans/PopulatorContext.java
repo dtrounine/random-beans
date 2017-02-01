@@ -48,7 +48,10 @@ class PopulatorContext {
 
     private final Stack<PopulatorContextStackItem> stack;
 
-    PopulatorContext(final int maxObjectPoolSize, final int maxRandomizationDepth, final String... excludedFields) {
+    private final Random random;
+
+    PopulatorContext(final long seed, final int maxObjectPoolSize, final int maxRandomizationDepth, final String... excludedFields) {
+        random = new Random(seed);
         populatedBeans = new IdentityHashMap<>();
         stack = new Stack<>();
         this.maxObjectPoolSize = maxObjectPoolSize;
@@ -109,6 +112,6 @@ class PopulatorContext {
     }
 
     private int nextInt(int startInclusive, int endExclusive) {
-        return startInclusive + new Random().nextInt(endExclusive - startInclusive);
+        return startInclusive + random.nextInt(endExclusive - startInclusive);
     }
 }

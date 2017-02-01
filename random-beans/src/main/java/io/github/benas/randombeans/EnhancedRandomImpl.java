@@ -61,8 +61,10 @@ class EnhancedRandomImpl extends EnhancedRandom {
 
     private final FieldExclusionChecker fieldExclusionChecker;
 
+    private long childSeed;
+
     EnhancedRandomImpl(final Set<RandomizerRegistry> registries) {
-        objectFactory = new ObjectFactory();
+        objectFactory = new ObjectFactory(this);
         randomizerProvider = new RandomizerProvider(registries);
         arrayPopulator = new ArrayPopulator(this, randomizerProvider);
         collectionPopulator = new CollectionPopulator(this, objectFactory);
@@ -74,7 +76,7 @@ class EnhancedRandomImpl extends EnhancedRandom {
 
     @Override
     public <T> T nextObject(final Class<T> type, final String... excludedFields) {
-        return doPopulateBean(type, new PopulatorContext(parameters.getMaxObjectPoolSize(), parameters.getMaxRandomizationDepth(), excludedFields));
+        return doPopulateBean(type, new PopulatorContext(childSeed++, parameters.getMaxObjectPoolSize(), parameters.getMaxRandomizationDepth(), excludedFields));
     }
 
     @Override
@@ -177,6 +179,7 @@ class EnhancedRandomImpl extends EnhancedRandom {
         super.setSeed(parameters.getSeed());
         fieldPopulator.setScanClasspathForConcreteTypes(parameters.isScanClasspathForConcreteTypes());
         objectFactory.setScanClasspathForConcreteTypes(parameters.isScanClasspathForConcreteTypes());
+        childSeed = parameters.getSeed();
     }
 
 }

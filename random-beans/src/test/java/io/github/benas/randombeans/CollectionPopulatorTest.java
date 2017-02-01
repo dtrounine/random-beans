@@ -54,7 +54,7 @@ public class CollectionPopulatorTest {
 
     @Before
     public void setUp() {
-        ObjectFactory objectFactory = new ObjectFactory();
+        ObjectFactory objectFactory = new ObjectFactory(enhancedRandom);
         collectionPopulator = new CollectionPopulator(enhancedRandom, objectFactory);
     }
 

@@ -57,7 +57,7 @@ public class MapPopulatorTest {
 
     @Before
     public void setUp() {
-        ObjectFactory objectFactory = new ObjectFactory();
+        ObjectFactory objectFactory = new ObjectFactory(enhancedRandom);
         mapPopulator = new MapPopulator(enhancedRandom, objectFactory);
     }
 
